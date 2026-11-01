@@ -1,0 +1,53 @@
+name: Build OrangeFox Recovery
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    name: Build OFRP for WP19 Pro
+    runs-on: ubuntu-22.04
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Free Storage Space
+        run: |
+          sudo rm -rf /usr/share/dotnet /usr/local/lib/android /opt/ghc /usr/local/share/boost
+          sudo apt-get clean
+          df -h
+
+      - name: Install Build Dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y bc bisect build-essential ccache curl flex g++-multilib gcc-multilib git gnupg gperf lib32ncurses5-dev lib32z1-dev liblibc6-dev-i386 libncurses5 libncurses5-dev libreadline-dev libsqlite3-dev libssl-dev libxml2 libxml2-utils lzop pngcrush rsync schedtool squashfs-tools xsltproc zip zlib1g-dev python3 repo
+
+      - name: Sync OrangeFox Source
+        run: |
+          mkdir -p ~/ofrp && cd ~/ofrp
+          git config --global user.name "idongpword"
+          git config --global user.email "isacryptoemail@gmail.com"
+          repo init -u https://gitlab.com/OrangeFox/Manifest.git -b fox_12.1 --depth=1
+          repo sync -c --no-clone-bundle --no-tags -j$(nproc)
+
+      - name: Clone Device Tree
+        run: |
+          git clone https://github.com/idongpword/wp19tree.git ~/ofrp/device/oukitel/WP19_Pro
+
+      - name: Build OrangeFox
+        run: |
+          cd ~/ofrp
+          source build/envsetup.sh
+          export ALLOW_MISSING_DEPENDENCIES=true
+          lunch fox_WP19_Pro-eng || lunch fox_WP19_Pro-userdebug
+          mka recoveryimage -j$(nproc)
+
+      - name: Upload Recovery Artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: OrangeFox-WP19_Pro
+          path: |
+            ~/ofrp/out/target/product/WP19_Pro/OrangeFox*.zip
+            ~/ofrp/out/target/product/WP19_Pro/recovery.img
+            ~/ofrp/out/target/product/WP19_Pro/boot.img

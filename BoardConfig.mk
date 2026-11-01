@@ -114,3 +114,24 @@ TW_SCREEN_BLANK_ON_BOOT := true
 TW_INPUT_BLACKLIST := "hbtp_vm"
 TW_USE_TOOLBOX := true
 TW_INCLUDE_REPACKTOOLS := true
+
+# --- OrangeFox Recovery Configurations ---
+FOX_VERSION := "R11.1"
+FOX_BUILD_TYPE := "Unofficial"
+OF_MAINTAINER := "Idongesit"
+
+# Display & UI
+TW_SCREEN_BLANK_ON_BOOT := true
+TARGET_SCREEN_HEIGHT := 2400
+TARGET_SCREEN_WIDTH := 1080
+
+# Features & Encryption
+TW_INCLUDE_CRYPTO := true
+TW_INCLUDE_NTFS := true
+TW_INCLUDE_FUSE_EXFAT := true
+OF_KEEP_FORCED_ENCRYPTION := true
+OF_QUICK_BACKUP_LIST := "/data;/boot;"
+
+# MT6789 Specific Setup
+OF_DISABLE_MIUI_SPECIFIC_FEATURES := 1
+OF_USE_GREEN_LED := 0
