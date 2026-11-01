@@ -1,6 +1,4 @@
-#
-# Hardware / Architecture Configuration
-#
+# Hardware Architecture
 TARGET_ARCH := arm64
 TARGET_ARCH_VARIANT := armv8-a
 TARGET_CPU_ABI := arm64-v8a
@@ -16,39 +14,30 @@ TARGET_2ND_CPU_VARIANT := generic
 TARGET_BOARD_PLATFORM := mt6789
 BOARD_HAS_MTK_HARDWARE := true
 
-#
-# Kernel and Header Specs
-#
+# Kernel Specs & Header Version
 TARGET_NO_KERNEL := false
-BOARD_KERNEL_CMDLINE := bootconfig
+TARGET_NO_RECOVERY := true
 BOARD_BOOT_HEADER_VERSION := 4
 BOARD_MKBOOTIMG_ARGS := --header_version $(BOARD_BOOT_HEADER_VERSION)
 
-#
-# Partition and Vendor Boot Settings
-#
+# Partition Configuration
 BOARD_USES_VENDOR_BOOT := true
 BOARD_BUILD_VENDOR_BOOT_IMAGE := true
 BOARD_MOVE_RECOVERY_RESOURCES_TO_VENDOR_BOOT := true
 BOARD_VENDOR_BOOTIMAGE_PARTITION_SIZE := 67108864
+BOARD_FLASH_BLOCK_SIZE := 2048
 
-#
-# System and File Decryption Parameters
-#
-BOARD_SUPPRESS_SECURE_ERASE := true
-RECOVERY_SDCARD_ON_DATA := true
+# Storage & Encryption Flags
 TW_INCLUDE_CRYPTO := true
 TW_INCLUDE_CRYPTO_FBE := true
 TW_INCLUDE_FDBE := true
 BOARD_USES_METADATA_PARTITION := true
+BOARD_SUPPRESS_SECURE_ERASE := true
+RECOVERY_SDCARD_ON_DATA := true
 
-#
-# OrangeFox GUI and Device Config
-#
+# OrangeFox GUI Settings
 TW_THEME := portrait
 TW_EXTRA_LANGUAGES := true
 TW_INPUT_BLACK_LIST := "hbtp_vm"
 TW_USE_TOOLBOX := true
 ALLOW_MISSING_DEPENDENCIES := true
-FOX_VIRTUAL_AB_DEVICE := 1
-FOX_BUILD_TYPE := Vendor_Boot
