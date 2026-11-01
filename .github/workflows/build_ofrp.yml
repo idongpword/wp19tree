@@ -5,7 +5,7 @@ on:
 
 jobs:
   build:
-    name: Build OFRP for WP19 Pro
+    name: Build OFRP Vendor Boot for WP19 Pro
     runs-on: ubuntu-22.04
 
     steps:
@@ -40,18 +40,18 @@ jobs:
           mkdir -p ~/ofrp/device/oukitel/WP19_Pro
           cp -r ./* ~/ofrp/device/oukitel/WP19_Pro/
 
-      - name: Compile OrangeFox Recovery
+      - name: Compile OrangeFox Recovery (Vendor Boot)
         run: |
           cd ~/ofrp
           source build/envsetup.sh
           export ALLOW_MISSING_DEPENDENCIES=true
-          lunch tw_WP19_Pro-eng || lunch fox_WP19_Pro-eng || lunch omni_WP19_Pro-eng
-          mka recoveryimage -j$(nproc)
+          lunch fox_WP19_Pro-eng
+          make vendorbootimage -j$(nproc)
 
-      - name: Upload Built Recovery Image
+      - name: Upload Built Vendor Boot Image
         uses: actions/upload-artifact@v4
         with:
-          name: OrangeFox-WP19_Pro-Android14
+          name: OrangeFox-WP19_Pro-VendorBoot
           path: |
-            ~/ofrp/out/target/product/WP19_Pro/recovery.img
+            ~/ofrp/out/target/product/WP19_Pro/vendor_boot.img
             ~/ofrp/out/target/product/WP19_Pro/OrangeFox*.zip
