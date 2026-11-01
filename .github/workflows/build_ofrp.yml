@@ -45,8 +45,8 @@ jobs:
           cd ~/ofrp
           source build/envsetup.sh
           export ALLOW_MISSING_DEPENDENCIES=true
-          lunch fox_WP19_Pro-eng || lunch fox_WP19_Pro-userdebug
-          make recoveryimage -j$(nproc)
+          lunch tw_WP19_Pro-eng || lunch fox_WP19_Pro-eng || lunch omni_WP19_Pro-eng
+          mka recoveryimage -j$(nproc)
 
       - name: Upload Built Recovery Image
         uses: actions/upload-artifact@v4
