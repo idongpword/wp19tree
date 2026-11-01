@@ -45,8 +45,10 @@ jobs:
           cd ~/ofrp
           source build/envsetup.sh
           export ALLOW_MISSING_DEPENDENCIES=true
+          export FOX_VIRTUAL_AB_DEVICE=1
+          export FOX_BUILD_TYPE=Vendor_Boot
           lunch fox_WP19_Pro-eng
-          make vendorbootimage -j$(nproc)
+          make recoveryimage -j$(nproc) || make vendorbootimage -j$(nproc)
 
       - name: Upload Built Vendor Boot Image
         uses: actions/upload-artifact@v4
@@ -54,4 +56,5 @@ jobs:
           name: OrangeFox-WP19_Pro-VendorBoot
           path: |
             ~/ofrp/out/target/product/WP19_Pro/vendor_boot.img
+            ~/ofrp/out/target/product/WP19_Pro/recovery.img
             ~/ofrp/out/target/product/WP19_Pro/OrangeFox*.zip
