@@ -41,3 +41,8 @@ TW_EXTRA_LANGUAGES := true
 TW_INPUT_BLACK_LIST := "hbtp_vm"
 TW_USE_TOOLBOX := true
 ALLOW_MISSING_DEPENDENCIES := true
+
+# --- ILITEK TDDI Touchscreen & Input Configuration ---
+TW_INPUT_BLACK_LIST := "hbtp_vm"
+TW_SUPPORT_INPUT_AIDL := true
+TW_SCREEN_BLANK_ON_BOOT := true
