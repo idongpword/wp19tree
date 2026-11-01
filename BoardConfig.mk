@@ -135,3 +135,32 @@ OF_QUICK_BACKUP_LIST := "/data;/boot;"
 # MT6789 Specific Setup
 OF_DISABLE_MIUI_SPECIFIC_FEATURES := 1
 OF_USE_GREEN_LED := 0
+
+# --- Storage Mounting & Decryption (Android 14 FBE) ---
+TW_INCLUDE_CRYPTO := true
+TW_INCLUDE_FBE_METADATA_DECRYPT := true
+BOARD_USES_METADATA_PARTITION := true
+TW_USE_FSCRYPT_POLICY := 2
+
+# Filesystem & MTP Storage Support
+TW_INCLUDE_NTFS := true
+TW_INCLUDE_FUSE_EXFAT := true
+TW_INCLUDE_FUSE_NTFS := true
+TW_EXCLUDE_MTP := false
+
+# --- Decryption & Storage Mounting (Android 14 FBE v2) ---
+TW_INCLUDE_CRYPTO := true
+TW_INCLUDE_CRYPTO_FBE := true
+TW_INCLUDE_FBE_METADATA_DECRYPT := true
+BOARD_USES_METADATA_PARTITION := true
+PLATFORM_SECURITY_PATCH := 2026-01-01
+PLATFORM_VERSION := 14
+PLATFORM_VERSION_LAST_STABLE := 14
+
+# Dual/External Storage Setup
+TW_HAS_MTP := true
+TW_INTERNAL_STORAGE_PATH := "/data/media/0"
+TW_INTERNAL_STORAGE_MOUNT_POINT := "data"
+TW_EXTERNAL_STORAGE_PATH := "/external_sd"
+TW_EXTERNAL_STORAGE_MOUNT_POINT := "external_sd"
+DEFAULT_ROOT := "/data/media/0"
